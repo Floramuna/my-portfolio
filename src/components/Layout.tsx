@@ -25,7 +25,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 
   // Navigation links
   const navLinks = [
-    { name: 'Home', path: '/' },
+    { name: 'Home', path: '/index' },
     { name: 'About', path: '/about' },
     { name: 'Projects', path: '/projects' },
     { name: 'Contact', path: '/contact' }
