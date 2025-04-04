@@ -3,82 +3,76 @@ import { useParams, Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import Layout from '@/components/Layout';
 
-// Sample project data
-const projectsData = [
+// Moved projects data to a separate constant for better organization
+const PROJECTS_DATA = [
   {
     id: 1,
     title: 'E-commerce Website',
     description: 'A responsive e-commerce platform with product filtering, cart functionality, and secure checkout process.',
-    longDescription: `This e-commerce website was built from scratch using HTML, CSS, and JavaScript. The project features a responsive design that works seamlessly across devices of all sizes.
+    longDescription: `This e-commerce website was built from scratch using React, TypeScript, and Node.js. The project features a responsive design that works seamlessly across devices.
 
-Key features include:
-- Responsive product grid with filtering and search
-- Shopping cart with localStorage persistence
-- User authentication system
-- Product detail pages with image galleries
-- Checkout process with form validation
-
-The site was designed with a focus on user experience, ensuring that customers can easily browse products, add items to their cart, and complete purchases with minimal friction.`,
+Key features:
+- Product filtering and search
+- Shopping cart with state management
+- Secure payment integration
+- Admin dashboard
+- Performance optimized (Lighthouse score 95+)`,
     image: 'https://images.unsplash.com/photo-1661956602116-aa6865609028?q=80&w=2080&auto=format&fit=crop',
     gallery: [
       'https://images.unsplash.com/photo-1555421689-491a97ff2040?q=80&w=2070&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1556742031-c6961e8560b0?q=80&w=2070&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1556740714-a8395b3d56e7?q=80&w=2070&auto=format&fit=crop'
+      'https://images.unsplash.com/photo-1556742031-c6961e8560b0?q=80&w=2070&auto=format&fit=crop'
     ],
-    tags: ['HTML', 'CSS', 'JavaScript', 'Responsive Design'],
+    tags: ['React', 'TypeScript', 'Node.js', 'Web3'],
     client: 'RetailCo Inc.',
     date: 'June 2023',
-    category: 'website',
-    link: '#'
+    category: 'web-app',
+    link: '#',
+    github: '#'
   },
   {
     id: 2,
     title: 'Personal Blog',
-    description: 'A minimalist blog design with dark/light mode toggle, comment system, and category filtering.',
-    longDescription: `This minimalist blog platform was designed to showcase content in a clean, distraction-free environment. The design focuses on typography and readability, with a dark/light mode toggle to enhance the reading experience.
+    description: 'Minimalist blog with dark/light mode and content management',
+    longDescription: `A headless CMS blog built with Next.js and Sanity.io focusing on performance and accessibility.
 
-Key features include:
-- Responsive layout optimized for reading
-- Dark/light mode theme toggle
-- Category filtering system
-- Comment section with nested replies
-- Related posts recommendations
-
-The blog uses vanilla JavaScript for all interactive elements, demonstrating that complex features can be implemented without heavy frameworks when appropriate.`,
+Technical highlights:
+- SSG with incremental static regeneration
+- Dark/light mode with system preference
+- Custom rich text components
+- SEO optimized (100/100 Lighthouse)`,
     image: 'https://images.unsplash.com/photo-1499750310107-5fef28a66643?q=80&w=2070&auto=format&fit=crop',
     gallery: [
-      'https://images.unsplash.com/photo-1471107340929-a87cd0f5b5f3?q=80&w=2073&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1545239351-ef35f43d514b?q=80&w=2074&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1542435503-956c469947f6?q=80&w=2074&auto=format&fit=crop'
+      'https://images.unsplash.com/photo-1471107340929-a87cd0f5b5f3?q=80&w=2073&auto=format&fit=crop'
     ],
-    tags: ['HTML', 'CSS', 'JavaScript', 'Responsive Design'],
+    tags: ['Next.js', 'Sanity.io', 'Tailwind CSS'],
     client: 'Self',
     date: 'March 2023',
     category: 'website',
-    link: '#'
-  },
-  // Additional projects would follow the same structure
+    link: '#',
+    github: '#'
+  }
 ];
 
 const ProjectDetail = () => {
   const { id } = useParams();
   const projectId = parseInt(id || '1');
-  
-  // Find the project with the matching ID
-  const project = projectsData.find(p => p.id === projectId) || projectsData[0];
-  
+  const project = PROJECTS_DATA.find(p => p.id === projectId);
+
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [id]);
+    document.title = project ? `${project.title} | Florence Makaa` : 'Project Not Found';
+  }, [id, project]);
 
   if (!project) {
     return (
       <Layout>
         <div className="container mx-auto px-4 py-20 text-center">
-          <h2 className="text-3xl font-bold mb-6">Project not found</h2>
-          <p className="mb-8">The project you're looking for doesn't exist or has been removed.</p>
+          <h2 className="text-3xl font-bold mb-6">Project Not Found</h2>
+          <p className="mb-8">The requested project doesn't exist in our portfolio.</p>
           <Link to="/projects">
-            <Button className="bg-purple hover:bg-purple-dark text-white">Back to Projects</Button>
+            <Button className="bg-purple hover:bg-purple-dark text-white">
+              Browse All Projects
+            </Button>
           </Link>
         </div>
       </Layout>
@@ -87,20 +81,25 @@ const ProjectDetail = () => {
 
   return (
     <Layout>
-      {/* Header with Hero Image */}
-      <section className="pt-20 relative">
-        <div className="h-64 md:h-96 w-full overflow-hidden">
+      {/* Hero Section */}
+      <section className="relative pt-20">
+        <div className="h-64 md:h-96 w-full overflow-hidden relative">
           <img 
             src={project.image} 
             alt={project.title}
             className="w-full h-full object-cover"
+            loading="lazy"
           />
-          <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
-            <div className="text-center text-white p-6">
-              <h1 className="text-4xl md:text-5xl font-bold mb-4">{project.title}</h1>
-              <div className="flex justify-center flex-wrap gap-2">
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-black/40 flex items-end pb-12 md:pb-20 px-4 md:px-8">
+            <div className="text-white max-w-4xl w-full mx-auto">
+              <h1 className="text-3xl md:text-5xl font-bold mb-4">{project.title}</h1>
+              <p className="text-lg md:text-xl mb-6">{project.description}</p>
+              <div className="flex flex-wrap gap-2">
                 {project.tags.map(tag => (
-                  <span key={tag} className="px-3 py-1 bg-white/20 rounded-full text-sm">
+                  <span 
+                    key={tag} 
+                    className="px-3 py-1 bg-white/20 rounded-full text-sm backdrop-blur-sm"
+                  >
                     {tag}
                   </span>
                 ))}
@@ -110,48 +109,105 @@ const ProjectDetail = () => {
         </div>
       </section>
 
-      {/* Project Overview */}
+      {/* Project Content */}
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Project Info */}
-            <div className="md:col-span-2 space-y-6">
-              <h2 className="text-3xl font-bold mb-4">Project Overview</h2>
-              <p className="text-gray-700 whitespace-pre-line">{project.longDescription}</p>
-            </div>
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+            {/* Main Content */}
+            <div className="lg:col-span-2">
+              <h2 className="text-3xl font-bold mb-8">Project Details</h2>
+              
+              <div className="prose max-w-none">
+                {project.longDescription.split('\n').map((paragraph, i) => (
+                  <p key={i} className="mb-4 text-gray-700">{paragraph}</p>
+                ))}
+              </div>
 
-            {/* Project Details */}
-            <div className="bg-gray-50 p-6 rounded-lg h-fit">
-              <h3 className="text-xl font-semibold mb-4">Project Details</h3>
-              <div className="space-y-3">
-                <div>
-                  <p className="text-sm text-gray-500">Client</p>
-                  <p className="font-medium">{project.client}</p>
-                </div>
-                <div>
-                  <p className="text-sm text-gray-500">Date</p>
-                  <p className="font-medium">{project.date}</p>
-                </div>
-                <div>
-                  <p className="text-sm text-gray-500">Category</p>
-                  <p className="font-medium capitalize">{project.category}</p>
-                </div>
-                <div>
-                  <p className="text-sm text-gray-500">Tags</p>
-                  <div className="flex flex-wrap gap-2 mt-1">
-                    {project.tags.map(tag => (
-                      <span key={tag} className="px-2 py-1 bg-purple/10 text-purple rounded text-xs">
-                        {tag}
-                      </span>
+              {/* Gallery */}
+              {project.gallery.length > 0 && (
+                <div className="mt-16">
+                  <h3 className="text-2xl font-bold mb-8">Project Screenshots</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {project.gallery.map((image, index) => (
+                      <div 
+                        key={index} 
+                        className="rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow"
+                      >
+                        <img
+                          src={image}
+                          alt={`${project.title} screenshot ${index + 1}`}
+                          className="w-full h-auto object-cover"
+                          loading="lazy"
+                        />
+                      </div>
                     ))}
                   </div>
                 </div>
-                <div className="pt-4">
-                  <a href={project.link} target="_blank" rel="noopener noreferrer">
-                    <Button className="w-full bg-purple hover:bg-purple-dark text-white">
-                      View Live Project
-                    </Button>
-                  </a>
+              )}
+            </div>
+
+            {/* Sidebar */}
+            <div className="space-y-8">
+              <div className="bg-gray-50 p-6 rounded-lg sticky top-8">
+                <h3 className="text-xl font-semibold mb-6 border-b pb-2">Project Info</h3>
+                
+                <div className="space-y-6">
+                  <div>
+                    <h4 className="text-sm font-medium text-gray-500 mb-1">Client</h4>
+                    <p>{project.client}</p>
+                  </div>
+                  
+                  <div>
+                    <h4 className="text-sm font-medium text-gray-500 mb-1">Date</h4>
+                    <p>{project.date}</p>
+                  </div>
+                  
+                  <div>
+                    <h4 className="text-sm font-medium text-gray-500 mb-1">Category</h4>
+                    <p className="capitalize">{project.category}</p>
+                  </div>
+                  
+                  <div>
+                    <h4 className="text-sm font-medium text-gray-500 mb-1">Technologies</h4>
+                    <div className="flex flex-wrap gap-2 mt-2">
+                      {project.tags.map(tag => (
+                        <span 
+                          key={tag} 
+                          className="px-3 py-1 bg-purple/10 text-purple rounded-full text-sm"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                  
+                  <div className="pt-4 space-y-3">
+                    {project.link && (
+                      <a 
+                        href={project.link} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="block"
+                      >
+                        <Button className="w-full bg-purple hover:bg-purple-dark text-white">
+                          View Live Project
+                        </Button>
+                      </a>
+                    )}
+                    
+                    {project.github && (
+                      <a 
+                        href={project.github} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="block"
+                      >
+                        <Button variant="outline" className="w-full border-purple text-purple hover:bg-purple/10">
+                          View Code
+                        </Button>
+                      </a>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
@@ -159,50 +215,54 @@ const ProjectDetail = () => {
         </div>
       </section>
 
-      {/* Project Gallery */}
+      {/* Project Navigation */}
       <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold mb-8">Project Gallery</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {project.gallery.map((image, index) => (
-              <div key={index} className="rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow">
-                <img 
-                  src={image} 
-                  alt={`${project.title} - image ${index + 1}`}
-                  className="w-full h-64 object-cover"
-                />
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Navigation */}
-      <section className="py-16 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <Link to="/projects">
-              <Button variant="outline" className="border-purple text-purple hover:bg-purple hover:text-white mb-4 md:mb-0">
-                <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+            <Link to="/projects" className="w-full md:w-auto">
+              <Button 
+                variant="outline" 
+                className="w-full border-purple text-purple hover:bg-purple/10 flex items-center"
+              >
+                <svg 
+                  xmlns="http://www.w3.org/2000/svg" 
+                  className="w-5 h-5 mr-2" 
+                  viewBox="0 0 24 24" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  strokeWidth="2"
+                >
                   <path d="M19 12H5M12 19l-7-7 7-7"></path>
                 </svg>
-                Back to Projects
+                All Projects
               </Button>
             </Link>
             
-            <div className="flex gap-4">
+            <div className="flex gap-3 w-full md:w-auto">
               {projectId > 1 && (
-                <Link to={`/projects/${projectId - 1}`}>
-                  <Button variant="outline" className="border-purple text-purple hover:bg-purple hover:text-white">
-                    Previous Project
+                <Link 
+                  to={`/projects/${projectId - 1}`} 
+                  className="flex-1 md:flex-none"
+                >
+                  <Button 
+                    variant="outline" 
+                    className="w-full border-purple text-purple hover:bg-purple/10"
+                  >
+                    Previous
                   </Button>
                 </Link>
               )}
               
-              {projectId < projectsData.length && (
-                <Link to={`/projects/${projectId + 1}`}>
-                  <Button variant="outline" className="border-purple text-purple hover:bg-purple hover:text-white">
-                    Next Project
+              {projectId < PROJECTS_DATA.length && (
+                <Link 
+                  to={`/projects/${projectId + 1}`} 
+                  className="flex-1 md:flex-none"
+                >
+                  <Button 
+                    variant="outline" 
+                    className="w-full border-purple text-purple hover:bg-purple/10"
+                  >
+                    Next
                   </Button>
                 </Link>
               )}
@@ -211,17 +271,20 @@ const ProjectDetail = () => {
         </div>
       </section>
 
-      {/* Call to Action */}
+      {/* CTA Section */}
       <section className="py-20 bg-purple text-white">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-6">
-            Interested in working together?
+            Have a similar project in mind?
           </h2>
-          <p className="text-lg opacity-90 max-w-2xl mx-auto mb-10">
-            I'm always open to discussing new projects or opportunities to be part of your vision.
+          <p className="text-lg md:text-xl opacity-90 max-w-2xl mx-auto mb-10">
+            Let's discuss how I can help bring your vision to life with custom digital solutions.
           </p>
           <Link to="/contact">
-            <Button variant="outline" className="border-white text-white hover:bg-white hover:text-purple">
+            <Button 
+              variant="outline" 
+              className="border-white text-white hover:bg-white hover:text-purple"
+            >
               Get in Touch
             </Button>
           </Link>
