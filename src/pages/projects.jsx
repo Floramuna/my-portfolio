@@ -1,14 +1,9 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const react_1 = require("react");
-const framer_motion_1 = require("framer-motion");
-const lucide_react_1 = require("lucide-react");
-const Layout_1 = __importDefault(require("@/components/Layout"));
+import { useState } from 'react';
+import { motion } from 'framer-motion';
+import { ArrowUpRight, Github } from 'lucide-react';
+import Layout from '@/components/Layout';
 const Projects = () => {
-    const [filter, setFilter] = (0, react_1.useState)('featured');
+    const [filter, setFilter] = useState('featured');
     // Project data with the provided images
     const projects = [
         {
@@ -49,8 +44,8 @@ const Projects = () => {
         : filter === 'featured'
             ? projects.filter(project => project.featured)
             : projects.filter(project => project.category === filter);
-    return (<Layout_1.default>
-      <framer_motion_1.motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="py-20 bg-gradient-to-b from-indigo-50 to-purple-50">
+    return (<Layout>
+      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="py-20 bg-gradient-to-b from-indigo-50 to-purple-50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
@@ -72,7 +67,7 @@ const Projects = () => {
 
           {/* Projects Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredProjects.map((project) => (<framer_motion_1.motion.div key={project.id} whileHover={{ y: -5 }} transition={{ duration: 0.3 }} className="bg-white rounded-xl overflow-hidden shadow-lg border border-purple-100">
+            {filteredProjects.map((project) => (<motion.div key={project.id} whileHover={{ y: -5 }} transition={{ duration: 0.3 }} className="bg-white rounded-xl overflow-hidden shadow-lg border border-purple-100">
                 <div className="h-64 relative overflow-hidden bg-gray-100">
                   <img src={project.image} alt={project.title} className="w-full h-full object-contain p-4 bg-white"/>
                   {project.featured && (<div className="absolute top-4 right-4 bg-purple-600 text-white text-xs px-3 py-1 rounded-full">
@@ -92,18 +87,18 @@ const Projects = () => {
                   
                   <div className="flex space-x-3">
                     {project.liveUrl && (<a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="flex items-center px-4 py-2 bg-purple-600 text-white rounded-lg text-sm font-medium hover:bg-purple-700 transition-colors">
-                        View Live <lucide_react_1.ArrowUpRight size={16} className="ml-1"/>
+                        View Live <ArrowUpRight size={16} className="ml-1"/>
                       </a>)}
                     
                     {project.githubUrl && (<a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="flex items-center px-4 py-2 bg-gray-100 text-gray-800 rounded-lg text-sm font-medium hover:bg-gray-200 transition-colors">
-                        Code <lucide_react_1.Github size={16} className="ml-1"/>
+                        Code <Github size={16} className="ml-1"/>
                       </a>)}
                   </div>
                 </div>
-              </framer_motion_1.motion.div>))}
+              </motion.div>))}
           </div>
         </div>
-      </framer_motion_1.motion.div>
-    </Layout_1.default>);
+      </motion.div>
+    </Layout>);
 };
-exports.default = Projects;
+export default Projects;

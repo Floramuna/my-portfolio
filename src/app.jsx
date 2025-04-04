@@ -1,22 +1,17 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const toaster_1 = require("@/components/ui/toaster");
-const sonner_1 = require("@/components/ui/sonner");
-const tooltip_1 = require("@/components/ui/tooltip");
-const react_query_1 = require("@tanstack/react-query");
-const react_router_dom_1 = require("react-router-dom");
-const react_1 = __importDefault(require("react"));
-const Index_1 = __importDefault(require("./pages/Index"));
-const About_1 = __importDefault(require("./pages/About"));
-const Projects_1 = __importDefault(require("./pages/Projects"));
-const ProjectDetail_1 = __importDefault(require("./pages/ProjectDetail"));
-const Contact_1 = __importDefault(require("./pages/Contact"));
-const NotFound_1 = __importDefault(require("./pages/NotFound"));
+import { Toaster } from "@/components/ui/toaster";
+import { Toaster as Sonner } from "@/components/ui/sonner";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import React from "react";
+import Index from "./pages/index";
+import About from "./pages/about";
+import Projects from "./pages/projects";
+import ProjectDetail from "./pages/ProjectDetail";
+import Contact from "./pages/contact";
+import NotFound from "./pages/notfound";
 // Configure QueryClient with default options
-const queryClient = new react_query_1.QueryClient({
+const queryClient = new QueryClient({
     defaultOptions: {
         queries: {
             refetchOnWindowFocus: false,
@@ -26,23 +21,23 @@ const queryClient = new react_query_1.QueryClient({
     },
 });
 const App = () => {
-    return (<react_query_1.QueryClientProvider client={queryClient}>
-      <tooltip_1.TooltipProvider delayDuration={300}>
-        <react_router_dom_1.BrowserRouter>
-          <react_router_dom_1.Routes>
-            <react_router_dom_1.Route path="/" element={<Index_1.default />}/>
-            <react_router_dom_1.Route path="/about" element={<About_1.default />}/>
-            <react_router_dom_1.Route path="/projects" element={<Projects_1.default />}/>
-            <react_router_dom_1.Route path="/projects/:id" element={<ProjectDetail_1.default />}/>
-            <react_router_dom_1.Route path="/contact" element={<Contact_1.default />}/>
-            <react_router_dom_1.Route path="*" element={<NotFound_1.default />}/>
-          </react_router_dom_1.Routes>
+    return (<QueryClientProvider client={queryClient}>
+      <TooltipProvider delayDuration={300}>
+        <BrowserRouter basename="/my-portfolio">
+          <Routes>
+            <Route path="/" element={<Index />}/>
+            <Route path="/about" element={<About />}/>
+            <Route path="/projects" element={<Projects />}/>
+            <Route path="/projects/:id" element={<ProjectDetail />}/>
+            <Route path="/contact" element={<Contact />}/>
+            <Route path="*" element={<NotFound />}/>
+          </Routes>
           
           {/* Toast Providers */}
-          <toaster_1.Toaster />
-          <sonner_1.Toaster position="bottom-right" richColors/>
-        </react_router_dom_1.BrowserRouter>
-      </tooltip_1.TooltipProvider>
-    </react_query_1.QueryClientProvider>);
+          <Toaster />
+          <Sonner position="bottom-right" richColors/>
+        </BrowserRouter>
+      </TooltipProvider>
+    </QueryClientProvider>);
 };
-exports.default = App;
+export default App;

@@ -156,7 +156,7 @@ const Index = () => {
         </div>
       </section>
 
-      <style jsx>{`
+      <style >{`
         @keyframes float {
           0% { transform: translateY(0px); }
           50% { transform: translateY(-10px); }

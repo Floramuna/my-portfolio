@@ -1,19 +1,17 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const react_1 = require("react");
-const react_router_dom_1 = require("react-router-dom");
-const lucide_react_1 = require("lucide-react");
-const framer_motion_1 = require("framer-motion");
+import { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { Menu, X } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 const Layout = ({ children }) => {
-    const [isOpen, setIsOpen] = (0, react_1.useState)(false);
-    const [isScrolled, setIsScrolled] = (0, react_1.useState)(false);
-    const location = (0, react_router_dom_1.useLocation)();
+    const [isOpen, setIsOpen] = useState(false);
+    const [isScrolled, setIsScrolled] = useState(false);
+    const location = useLocation();
     // Close mobile menu when route changes
-    (0, react_1.useEffect)(() => {
+    useEffect(() => {
         setIsOpen(false);
     }, [location]);
     // Handle scroll effect for header
-    (0, react_1.useEffect)(() => {
+    useEffect(() => {
         const handleScroll = () => {
             setIsScrolled(window.scrollY > 10);
         };
@@ -25,7 +23,6 @@ const Layout = ({ children }) => {
         { name: 'Home', path: '/' },
         { name: 'About', path: '/about' },
         { name: 'Projects', path: '/projects' },
-        { name: 'Blog', path: '/blog' },
         { name: 'Contact', path: '/contact' }
     ];
     // Social media links
@@ -40,42 +37,42 @@ const Layout = ({ children }) => {
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
-            <react_router_dom_1.Link to="/" className="flex items-center">
+            <Link to="/" className="flex items-center">
               <span className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-indigo-600">
                 Florence M.
               </span>
-            </react_router_dom_1.Link>
+            </Link>
 
             {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center space-x-8">
-              {navLinks.map((link) => (<react_router_dom_1.Link to={link.path} key={link.name} className={`text-sm font-medium transition-colors ${location.pathname === link.path
+              {navLinks.map((link) => (<Link to={link.path} key={link.name} className={`text-sm font-medium transition-colors ${location.pathname === link.path
                 ? 'text-purple-600'
                 : 'text-gray-600 hover:text-purple-600'}`}>
                   {link.name}
-                </react_router_dom_1.Link>))}
+                </Link>))}
             </nav>
 
             {/* Mobile menu button */}
             <button className="md:hidden p-2 -mr-2" onClick={() => setIsOpen(!isOpen)} aria-label="Toggle menu">
-              {isOpen ? <lucide_react_1.X size={24}/> : <lucide_react_1.Menu size={24}/>}
+              {isOpen ? <X size={24}/> : <Menu size={24}/>}
             </button>
           </div>
         </div>
 
         {/* Mobile Navigation */}
-        <framer_motion_1.AnimatePresence>
-          {isOpen && (<framer_motion_1.motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="md:hidden bg-white overflow-hidden shadow-md">
+        <AnimatePresence>
+          {isOpen && (<motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="md:hidden bg-white overflow-hidden shadow-md">
               <div className="container mx-auto px-4 py-3">
                 <nav className="flex flex-col space-y-3">
-                  {navLinks.map((link) => (<react_router_dom_1.Link to={link.path} key={link.name} onClick={() => setIsOpen(false)} className={`py-2 px-3 rounded-md transition-colors ${location.pathname === link.path
+                  {navLinks.map((link) => (<Link to={link.path} key={link.name} onClick={() => setIsOpen(false)} className={`py-2 px-3 rounded-md transition-colors ${location.pathname === link.path
                     ? 'bg-purple-50 text-purple-600'
                     : 'text-gray-700 hover:bg-purple-50'}`}>
                       {link.name}
-                    </react_router_dom_1.Link>))}
+                    </Link>))}
                 </nav>
               </div>
-            </framer_motion_1.motion.div>)}
-        </framer_motion_1.AnimatePresence>
+            </motion.div>)}
+        </AnimatePresence>
       </header>
 
       {/* Main Content */}
@@ -101,9 +98,9 @@ const Layout = ({ children }) => {
               <h3 className="text-lg font-bold text-gray-800 mb-4">Quick Links</h3>
               <ul className="space-y-2">
                 {navLinks.map((link) => (<li key={link.name}>
-                    <react_router_dom_1.Link to={link.path} className="text-gray-600 hover:text-purple-600 transition-colors">
+                    <Link to={link.path} className="text-gray-600 hover:text-purple-600 transition-colors">
                       {link.name}
-                    </react_router_dom_1.Link>
+                    </Link>
                   </li>))}
               </ul>
             </div>
@@ -126,4 +123,4 @@ const Layout = ({ children }) => {
       </footer>
     </div>);
 };
-exports.default = Layout;
+export default Layout;

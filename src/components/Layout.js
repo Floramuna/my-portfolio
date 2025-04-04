@@ -21,10 +21,9 @@ const Layout = ({ children }) => {
     }, []);
     // Navigation links
     const navLinks = [
-        { name: 'Home', path: '/' },
+        { name: 'Home', path: '/index' },
         { name: 'About', path: '/about' },
         { name: 'Projects', path: '/projects' },
-        { name: 'Blog', path: '/blog' },
         { name: 'Contact', path: '/contact' }
     ];
     // Social media links

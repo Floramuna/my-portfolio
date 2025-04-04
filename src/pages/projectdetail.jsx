@@ -1,12 +1,7 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const react_1 = require("react");
-const react_router_dom_1 = require("react-router-dom");
-const button_1 = require("@/components/ui/button");
-const Layout_1 = __importDefault(require("@/components/Layout"));
+import { useEffect } from 'react';
+import { useParams, Link } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
+import Layout from '@/components/Layout';
 // Moved projects data to a separate constant for better organization
 const PROJECTS_DATA = [
     {
@@ -57,27 +52,27 @@ Technical highlights:
     }
 ];
 const ProjectDetail = () => {
-    const { id } = (0, react_router_dom_1.useParams)();
+    const { id } = useParams();
     const projectId = parseInt(id || '1');
     const project = PROJECTS_DATA.find(p => p.id === projectId);
-    (0, react_1.useEffect)(() => {
+    useEffect(() => {
         window.scrollTo(0, 0);
         document.title = project ? `${project.title} | Florence Makaa` : 'Project Not Found';
     }, [id, project]);
     if (!project) {
-        return (<Layout_1.default>
+        return (<Layout>
         <div className="container mx-auto px-4 py-20 text-center">
           <h2 className="text-3xl font-bold mb-6">Project Not Found</h2>
           <p className="mb-8">The requested project doesn't exist in our portfolio.</p>
-          <react_router_dom_1.Link to="/projects">
-            <button_1.Button className="bg-purple hover:bg-purple-dark text-white">
+          <Link to="/projects">
+            <Button className="bg-purple hover:bg-purple-dark text-white">
               Browse All Projects
-            </button_1.Button>
-          </react_router_dom_1.Link>
+            </Button>
+          </Link>
         </div>
-      </Layout_1.default>);
+      </Layout>);
     }
-    return (<Layout_1.default>
+    return (<Layout>
       {/* Hero Section */}
       <section className="relative pt-20">
         <div className="h-64 md:h-96 w-full overflow-hidden relative">
@@ -151,15 +146,15 @@ const ProjectDetail = () => {
                   
                   <div className="pt-4 space-y-3">
                     {project.link && (<a href={project.link} target="_blank" rel="noopener noreferrer" className="block">
-                        <button_1.Button className="w-full bg-purple hover:bg-purple-dark text-white">
+                        <Button className="w-full bg-purple hover:bg-purple-dark text-white">
                           View Live Project
-                        </button_1.Button>
+                        </Button>
                       </a>)}
                     
                     {project.github && (<a href={project.github} target="_blank" rel="noopener noreferrer" className="block">
-                        <button_1.Button variant="outline" className="w-full border-purple text-purple hover:bg-purple/10">
+                        <Button variant="outline" className="w-full border-purple text-purple hover:bg-purple/10">
                           View Code
-                        </button_1.Button>
+                        </Button>
                       </a>)}
                   </div>
                 </div>
@@ -173,27 +168,27 @@ const ProjectDetail = () => {
       <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <react_router_dom_1.Link to="/projects" className="w-full md:w-auto">
-              <button_1.Button variant="outline" className="w-full border-purple text-purple hover:bg-purple/10 flex items-center">
+            <Link to="/projects" className="w-full md:w-auto">
+              <Button variant="outline" className="w-full border-purple text-purple hover:bg-purple/10 flex items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <path d="M19 12H5M12 19l-7-7 7-7"></path>
                 </svg>
                 All Projects
-              </button_1.Button>
-            </react_router_dom_1.Link>
+              </Button>
+            </Link>
             
             <div className="flex gap-3 w-full md:w-auto">
-              {projectId > 1 && (<react_router_dom_1.Link to={`/projects/${projectId - 1}`} className="flex-1 md:flex-none">
-                  <button_1.Button variant="outline" className="w-full border-purple text-purple hover:bg-purple/10">
+              {projectId > 1 && (<Link to={`/projects/${projectId - 1}`} className="flex-1 md:flex-none">
+                  <Button variant="outline" className="w-full border-purple text-purple hover:bg-purple/10">
                     Previous
-                  </button_1.Button>
-                </react_router_dom_1.Link>)}
+                  </Button>
+                </Link>)}
               
-              {projectId < PROJECTS_DATA.length && (<react_router_dom_1.Link to={`/projects/${projectId + 1}`} className="flex-1 md:flex-none">
-                  <button_1.Button variant="outline" className="w-full border-purple text-purple hover:bg-purple/10">
+              {projectId < PROJECTS_DATA.length && (<Link to={`/projects/${projectId + 1}`} className="flex-1 md:flex-none">
+                  <Button variant="outline" className="w-full border-purple text-purple hover:bg-purple/10">
                     Next
-                  </button_1.Button>
-                </react_router_dom_1.Link>)}
+                  </Button>
+                </Link>)}
             </div>
           </div>
         </div>
@@ -208,13 +203,13 @@ const ProjectDetail = () => {
           <p className="text-lg md:text-xl opacity-90 max-w-2xl mx-auto mb-10">
             Let's discuss how I can help bring your vision to life with custom digital solutions.
           </p>
-          <react_router_dom_1.Link to="/contact">
-            <button_1.Button variant="outline" className="border-white text-white hover:bg-white hover:text-purple">
+          <Link to="/contact">
+            <Button variant="outline" className="border-white text-white hover:bg-white hover:text-purple">
               Get in Touch
-            </button_1.Button>
-          </react_router_dom_1.Link>
+            </Button>
+          </Link>
         </div>
       </section>
-    </Layout_1.default>);
+    </Layout>);
 };
-exports.default = ProjectDetail;
+export default ProjectDetail;

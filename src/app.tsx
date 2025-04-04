@@ -7,7 +7,7 @@ import React from "react";
 import Index from "./pages/index";
 import About from "./pages/about";
 import Projects from "./pages/projects";
-import ProjectDetail from "./pages/projectDetail";
+import ProjectDetail from "./pages/ProjectDetail";
 import Contact from "./pages/contact";
 import NotFound from "./pages/notfound";
 
@@ -26,7 +26,7 @@ const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider delayDuration={300}>
-        <BrowserRouter>
+        <BrowserRouter basename="/my-portfolio">
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/about" element={<About />} />

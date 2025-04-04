@@ -1,21 +1,16 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const react_1 = require("react");
-const button_1 = require("@/components/ui/button");
-const use_toast_1 = require("@/components/ui/use-toast");
-const Layout_1 = __importDefault(require("@/components/Layout"));
-const framer_motion_1 = require("framer-motion");
+import { useState, useEffect } from 'react';
+import { Button } from '@/components/ui/button';
+import { useToast } from '@/components/ui/use-toast';
+import Layout from '@/components/Layout';
+import { motion } from 'framer-motion';
 const Contact = () => {
-    const [name, setName] = (0, react_1.useState)('');
-    const [email, setEmail] = (0, react_1.useState)('');
-    const [subject, setSubject] = (0, react_1.useState)('');
-    const [message, setMessage] = (0, react_1.useState)('');
-    const [isSubmitting, setIsSubmitting] = (0, react_1.useState)(false);
-    const { toast } = (0, use_toast_1.useToast)();
-    (0, react_1.useEffect)(() => {
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [subject, setSubject] = useState('');
+    const [message, setMessage] = useState('');
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const { toast } = useToast();
+    useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
     const handleSubmit = (e) => {
@@ -35,9 +30,9 @@ const Contact = () => {
             setIsSubmitting(false);
         }, 1500);
     };
-    return (<Layout_1.default>
+    return (<Layout>
       {/* Header */}
-      <framer_motion_1.motion.section initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="pt-20 pb-12 bg-gradient-to-b from-indigo-50 to-purple-50">
+      <motion.section initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="pt-20 pb-12 bg-gradient-to-b from-indigo-50 to-purple-50">
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
             Get In <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-indigo-600">Touch</span>
@@ -46,14 +41,14 @@ const Contact = () => {
             Have a question or want to work together? Feel free to reach out using the form below.
           </p>
         </div>
-      </framer_motion_1.motion.section>
+      </motion.section>
 
       {/* Contact Form & Info */}
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
             {/* Contact Form */}
-            <framer_motion_1.motion.div initial={{ x: -20, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ delay: 0.1 }} className="bg-white rounded-xl shadow-lg p-8 border border-purple-100 flex flex-col">
+            <motion.div initial={{ x: -20, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ delay: 0.1 }} className="bg-white rounded-xl shadow-lg p-8 border border-purple-100 flex flex-col">
               <h2 className="text-2xl font-semibold mb-6 text-purple-800">Send Me a Message</h2>
               
               <form onSubmit={handleSubmit} className="space-y-6 flex-grow">
@@ -85,14 +80,14 @@ const Contact = () => {
                   <textarea id="message" value={message} onChange={(e) => setMessage(e.target.value)} rows={5} className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500" required/>
                 </div>
                 
-                <button_1.Button type="submit" className="w-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white py-3 text-lg" disabled={isSubmitting}>
+                <Button type="submit" className="w-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white py-3 text-lg" disabled={isSubmitting}>
                   {isSubmitting ? 'Sending...' : 'Send Message'}
-                </button_1.Button>
+                </Button>
               </form>
-            </framer_motion_1.motion.div>
+            </motion.div>
             
             {/* Contact Information */}
-            <framer_motion_1.motion.div initial={{ x: 20, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ delay: 0.2 }} className="flex flex-col justify-between h-full">
+            <motion.div initial={{ x: 20, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ delay: 0.2 }} className="flex flex-col justify-between h-full">
               <div>
                 <h2 className="text-2xl font-semibold mb-6 text-purple-800">Contact Information</h2>
                 <p className="text-gray-600 mb-8">
@@ -166,7 +161,7 @@ const Contact = () => {
                   </a>
                 </div>
               </div>
-            </framer_motion_1.motion.div>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -180,6 +175,6 @@ const Contact = () => {
           </div>
         </div>
       </section>
-    </Layout_1.default>);
+    </Layout>);
 };
-exports.default = Contact;
+export default Contact;

@@ -1,17 +1,12 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const react_1 = require("react");
-const react_router_dom_1 = require("react-router-dom");
-const button_1 = require("@/components/ui/button");
-const Layout_1 = __importDefault(require("@/components/Layout"));
+import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
+import Layout from '@/components/Layout';
 const About = () => {
-    (0, react_1.useEffect)(() => {
+    useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
-    return (<Layout_1.default>
+    return (<Layout>
       {/* Hero Section with improved gradient */}
       <section className="relative bg-gradient-to-b from-slate-50 to-purple-50 pt-24 pb-32">
         <div className="container mx-auto px-4 text-center">
@@ -56,11 +51,11 @@ const About = () => {
               Currently, I serve as an active ambassador for ICP Hub Kenya, fostering blockchain adoption and innovation.
             </p>
             <div className="flex flex-wrap gap-4">
-              <react_router_dom_1.Link to="/projects">
-                <button_1.Button className="bg-purple-700 hover:bg-purple-800 text-white px-6 py-3">
+              <Link to="/projects">
+                <Button className="bg-purple-700 hover:bg-purple-800 text-white px-6 py-3">
                   View Projects
-                </button_1.Button>
-              </react_router_dom_1.Link>
+                </Button>
+              </Link>
               <a href="/florence-makaa-cv.pdf" download className="px-6 py-3 border-2 border-purple-500 text-purple-700 rounded-md hover:bg-purple-50 transition-colors flex items-center font-medium">
                 Download CV
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -250,13 +245,13 @@ const About = () => {
           <p className="text-lg md:text-xl opacity-90 max-w-2xl mx-auto mb-10">
             Whether you need a web app, mobile solution, or blockchain integration, I'm here to help bring your vision to life.
           </p>
-          <react_router_dom_1.Link to="/contact">
-            <button_1.Button variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-purple-700 px-8 py-6 text-lg font-medium">
+          <Link to="/contact">
+            <Button variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-purple-700 px-8 py-6 text-lg font-medium">
               Let's Connect
-            </button_1.Button>
-          </react_router_dom_1.Link>
+            </Button>
+          </Link>
         </div>
       </section>
-    </Layout_1.default>);
+    </Layout>);
 };
-exports.default = About;
+export default About;

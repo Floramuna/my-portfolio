@@ -1,14 +1,9 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const react_1 = require("react");
-const react_router_dom_1 = require("react-router-dom");
-const button_1 = require("@/components/ui/button");
-const Layout_1 = __importDefault(require("@/components/Layout"));
+import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
+import Layout from '@/components/Layout';
 const Index = () => {
-    (0, react_1.useEffect)(() => {
+    useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
     const featuredProjects = [
@@ -29,7 +24,7 @@ const Index = () => {
             tags: ["ICP", "Blockchain", "Web3"]
         }
     ];
-    return (<Layout_1.default>
+    return (<Layout>
       {/* Hero Section */}
       <section className="relative bg-gradient-to-b from-indigo-50 via-purple-50 to-violet-50 pt-24 pb-32">
         <div className="absolute inset-0 bg-pattern opacity-10"></div>
@@ -45,16 +40,16 @@ const Index = () => {
               A passionate full-stack developer specializing in web design, mobile development, and blockchain solutions.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <react_router_dom_1.Link to="/projects">
-                <button_1.Button className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white px-8 py-6 rounded-md font-medium shadow-md">
+              <Link to="/projects">
+                <Button className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white px-8 py-6 rounded-md font-medium shadow-md">
                   View My Work
-                </button_1.Button>
-              </react_router_dom_1.Link>
-              <react_router_dom_1.Link to="/contact">
-                <button_1.Button variant="outline" className="border-purple-300 text-purple-700 hover:bg-purple-50 px-8 py-6 rounded-md font-medium">
+                </Button>
+              </Link>
+              <Link to="/contact">
+                <Button variant="outline" className="border-purple-300 text-purple-700 hover:bg-purple-50 px-8 py-6 rounded-md font-medium">
                   Contact Me
-                </button_1.Button>
-              </react_router_dom_1.Link>
+                </Button>
+              </Link>
             </div>
           </div>
           
@@ -127,15 +122,15 @@ const Index = () => {
           <p className="text-lg md:text-xl opacity-90 max-w-2xl mx-auto mb-10">
             Interested in web, mobile, or blockchain solutions? I'm available for projects and collaborations.
           </p>
-          <react_router_dom_1.Link to="/contact">
-            <button_1.Button className="bg-white text-purple-700 hover:bg-purple-50 px-8 py-6 text-lg font-medium shadow-lg">
+          <Link to="/contact">
+            <Button className="bg-white text-purple-700 hover:bg-purple-50 px-8 py-6 text-lg font-medium shadow-lg">
               Get in Touch
-            </button_1.Button>
-          </react_router_dom_1.Link>
+            </Button>
+          </Link>
         </div>
       </section>
 
-      <style jsx>{`
+      <style>{`
         @keyframes float {
           0% { transform: translateY(0px); }
           50% { transform: translateY(-10px); }
@@ -148,6 +143,6 @@ const Index = () => {
           background-size: 100px 100px;
         }
       `}</style>
-    </Layout_1.default>);
+    </Layout>);
 };
-exports.default = Index;
+export default Index;
