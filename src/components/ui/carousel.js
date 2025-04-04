@@ -1,38 +1,10 @@
 "use client";
-"use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.CarouselNext = exports.CarouselPrevious = exports.CarouselItem = exports.CarouselContent = exports.Carousel = void 0;
-const React = __importStar(require("react"));
-const embla_carousel_react_1 = __importDefault(require("embla-carousel-react"));
-const lucide_react_1 = require("lucide-react");
-const utils_1 = require("@/lib/utils");
-const button_1 = require("@/components/ui/button");
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+import * as React from "react";
+import useEmblaCarousel from "embla-carousel-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
 const CarouselContext = React.createContext(null);
 function useCarousel() {
     const context = React.useContext(CarouselContext);
@@ -42,7 +14,7 @@ function useCarousel() {
     return context;
 }
 function Carousel({ orientation = "horizontal", opts, setApi, plugins, className, children, ...props }) {
-    const [carouselRef, api] = (0, embla_carousel_react_1.default)({
+    const [carouselRef, api] = useEmblaCarousel({
         ...opts,
         axis: orientation === "horizontal" ? "x" : "y",
     }, plugins);
@@ -85,7 +57,7 @@ function Carousel({ orientation = "horizontal", opts, setApi, plugins, className
             api?.off("select", onSelect);
         };
     }, [api, onSelect]);
-    return (<CarouselContext.Provider value={{
+    return (_jsx(CarouselContext.Provider, { value: {
             carouselRef,
             api: api,
             opts,
@@ -94,42 +66,26 @@ function Carousel({ orientation = "horizontal", opts, setApi, plugins, className
             scrollNext,
             canScrollPrev,
             canScrollNext,
-        }}>
-      <div onKeyDownCapture={handleKeyDown} className={(0, utils_1.cn)("relative", className)} role="region" aria-roledescription="carousel" data-slot="carousel" {...props}>
-        {children}
-      </div>
-    </CarouselContext.Provider>);
+        }, children: _jsx("div", { onKeyDownCapture: handleKeyDown, className: cn("relative", className), role: "region", "aria-roledescription": "carousel", "data-slot": "carousel", ...props, children: children }) }));
 }
-exports.Carousel = Carousel;
 function CarouselContent({ className, ...props }) {
     const { carouselRef, orientation } = useCarousel();
-    return (<div ref={carouselRef} className="overflow-hidden" data-slot="carousel-content">
-      <div className={(0, utils_1.cn)("flex", orientation === "horizontal" ? "-ml-4" : "-mt-4 flex-col", className)} {...props}/>
-    </div>);
+    return (_jsx("div", { ref: carouselRef, className: "overflow-hidden", "data-slot": "carousel-content", children: _jsx("div", { className: cn("flex", orientation === "horizontal" ? "-ml-4" : "-mt-4 flex-col", className), ...props }) }));
 }
-exports.CarouselContent = CarouselContent;
 function CarouselItem({ className, ...props }) {
     const { orientation } = useCarousel();
-    return (<div role="group" aria-roledescription="slide" data-slot="carousel-item" className={(0, utils_1.cn)("min-w-0 shrink-0 grow-0 basis-full", orientation === "horizontal" ? "pl-4" : "pt-4", className)} {...props}/>);
+    return (_jsx("div", { role: "group", "aria-roledescription": "slide", "data-slot": "carousel-item", className: cn("min-w-0 shrink-0 grow-0 basis-full", orientation === "horizontal" ? "pl-4" : "pt-4", className), ...props }));
 }
-exports.CarouselItem = CarouselItem;
 function CarouselPrevious({ className, variant = "outline", size = "icon", ...props }) {
     const { orientation, scrollPrev, canScrollPrev } = useCarousel();
-    return (<button_1.Button data-slot="carousel-previous" variant={variant} size={size} className={(0, utils_1.cn)("absolute size-8 rounded-full", orientation === "horizontal"
+    return (_jsxs(Button, { "data-slot": "carousel-previous", variant: variant, size: size, className: cn("absolute size-8 rounded-full", orientation === "horizontal"
             ? "top-1/2 -left-12 -translate-y-1/2"
-            : "-top-12 left-1/2 -translate-x-1/2 rotate-90", className)} disabled={!canScrollPrev} onClick={scrollPrev} {...props}>
-      <lucide_react_1.ArrowLeft />
-      <span className="sr-only">Previous slide</span>
-    </button_1.Button>);
+            : "-top-12 left-1/2 -translate-x-1/2 rotate-90", className), disabled: !canScrollPrev, onClick: scrollPrev, ...props, children: [_jsx(ArrowLeft, {}), _jsx("span", { className: "sr-only", children: "Previous slide" })] }));
 }
-exports.CarouselPrevious = CarouselPrevious;
 function CarouselNext({ className, variant = "outline", size = "icon", ...props }) {
     const { orientation, scrollNext, canScrollNext } = useCarousel();
-    return (<button_1.Button data-slot="carousel-next" variant={variant} size={size} className={(0, utils_1.cn)("absolute size-8 rounded-full", orientation === "horizontal"
+    return (_jsxs(Button, { "data-slot": "carousel-next", variant: variant, size: size, className: cn("absolute size-8 rounded-full", orientation === "horizontal"
             ? "top-1/2 -right-12 -translate-y-1/2"
-            : "-bottom-12 left-1/2 -translate-x-1/2 rotate-90", className)} disabled={!canScrollNext} onClick={scrollNext} {...props}>
-      <lucide_react_1.ArrowRight />
-      <span className="sr-only">Next slide</span>
-    </button_1.Button>);
+            : "-bottom-12 left-1/2 -translate-x-1/2 rotate-90", className), disabled: !canScrollNext, onClick: scrollNext, ...props, children: [_jsx(ArrowRight, {}), _jsx("span", { className: "sr-only", children: "Next slide" })] }));
 }
-exports.CarouselNext = CarouselNext;
+export { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext, };
