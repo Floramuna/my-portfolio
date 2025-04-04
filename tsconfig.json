@@ -1,7 +1,8 @@
 {
   "compilerOptions": {
+    "jsx": "react-jsx",
     "module": "ESNext",
-    "moduleResolution": "NodeNext",
+    "moduleResolution": "Node",
     "target": "ESNext",
     "strict": true,
     "allowJs": true,
@@ -12,8 +13,9 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
-    }
+    },
+    "types": ["vite/client"]
   },
-  "include": ["src", "vite.config.ts"],
+  "include": ["src", "vite.config.js"],
   "exclude": ["node_modules", "dist"]
 }

@@ -1,13 +1,12 @@
 {
   "name": "my-portfolio",
-  "private": true,
   "version": "1.0.0",
-  "type": "module",
+  "private": true,
   "scripts": {
     "dev": "vite --force",
-    "build": "vite build",
+    "build": "tsc && vite build",
     "preview": "vite preview",
-    "lint": "eslint ."
+    "deploy": "npm run build && gh-pages -d dist"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.0.1",
@@ -62,20 +61,23 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.2",
-    "@types/react": "^18.2.0",
-    "@types/react-dom": "^18.2.0",
+    "@types/node": "^22.14.0",
+    "@types/react": "^18.3.20",
+    "@types/react-dom": "^18.3.6",
     "@types/tailwindcss": "^3.0.11",
-    "@vitejs/plugin-react": "^4.2.1",
+    "@vitejs/plugin-react": "^4.3.4",
     "@vitejs/plugin-react-swc": "^3.8.1",
     "autoprefixer": "^10.4.16",
     "eslint": "^9.23.0",
+    "gh-pages": "^6.3.0",
     "glob": "^11.0.1",
     "postcss": "^8.5.3",
     "postcss-nesting": "^13.0.1",
     "rimraf": "^6.0.1",
     "tailwindcss": "^3.4.1",
     "tailwindcss-animate": "^1.0.7",
-    "typescript": "^5.3.3",
-    "vite": "^4.5.0"
-  }
+    "typescript": "^5.8.2",
+    "vite": "^4.5.12"
+  },
+  "homepage": "https://yourusername.github.io/my-portfolio"
 }
